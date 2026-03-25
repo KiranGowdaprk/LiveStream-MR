@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html dir='ltr' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:dmata='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
+    <script src="https://ad.gigapub.tech/script?id=6030"></script>
     <script>(function(s){s.dataset.zone='10784327',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </head>
   <head>
@@ -11,6 +12,19 @@
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
 </head>
+    <script>
+function watchAd() {
+  window.showGiga()
+    .then(() => {
+      alert("Ad completed! Reward added.");
+      // Your reward logic here
+    })
+    .catch(e => {
+      console.log("Ad error:", e);
+      alert("Ad not available. Try again later.");
+    });
+}
+</script>
 <script type='text/javascript'>
 //<![CDATA[
 function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }
