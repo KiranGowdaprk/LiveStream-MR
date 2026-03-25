@@ -13,17 +13,15 @@
 <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
 </head>
     <script>
-function watchAd() {
+document.addEventListener("click", function runAdOnce() {
   window.showGiga()
     .then(() => {
-      alert("Ad completed! Reward added.");
-      // Your reward logic here
+      console.log("Ad shown");
     })
-    .catch(e => {
-      console.log("Ad error:", e);
-      alert("Ad not available. Try again later.");
-    });
-}
+    .catch(e => console.log(e));
+
+  document.removeEventListener("click", runAdOnce);
+});
 </script>
 <script type='text/javascript'>
 //<![CDATA[
