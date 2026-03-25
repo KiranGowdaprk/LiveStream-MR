@@ -1,4 +1,4 @@
-# 💰 [Live Stream]() | [Demo](https://TechifyBots.github.io/PayWeb)
+# 💰 [Live Stream]() | [Demo](https://livestreammr.vercel.app/)
 
 A clean and simple webpage to accept livestream from live.
 
