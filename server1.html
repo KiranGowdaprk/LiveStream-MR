@@ -1686,7 +1686,7 @@
       <div class="player-wrapper">
         <div class="player-container">
           
-          <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="_iRm1Uce8uE"></div>
+          <video id="player" class="player" controls playsinline></video>
           <div class="video-info">
             <div class="video-header">
               <h1 class="video-title">Cricket Server</h1>
@@ -1877,10 +1877,30 @@
       <div class="toast-message">Link copied to clipboard</div>
     </div>
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
+
+    const video = document.getElementById('player');
+
+const liveStream = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"; // replace with your sports live link
+
+if (Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(liveStream);
+  hls.attachMedia(video);
+
+  hls.on(Hls.Events.MANIFEST_PARSED, function () {
+    video.play();
+  });
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  video.src = liveStream;
+  video.addEventListener('loadedmetadata', function () {
+    video.play();
+  });
+}
+    
     // Watchlist Management
     class WatchlistManager {
       constructor() {
