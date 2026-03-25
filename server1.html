@@ -1882,24 +1882,53 @@
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
 
-    const video = document.getElementById('player');
+    const streamLink = ""; // paste stream link here
 
-const liveStream = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"; // replace with your sports live link
+const video = document.getElementById("player");
+const container = document.querySelector(".player-container");
 
-if (Hls.isSupported()) {
-  const hls = new Hls();
-  hls.loadSource(liveStream);
-  hls.attachMedia(video);
+function loadStream(link){
 
-  hls.on(Hls.Events.MANIFEST_PARSED, function () {
-    video.play();
-  });
-} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-  video.src = liveStream;
-  video.addEventListener('loadedmetadata', function () {
-    video.play();
-  });
+if(!link){
+console.log("No stream link added");
+return;
 }
+
+if(link.includes("youtube.com") || link.includes("youtu.be")){
+
+let id = link.split("v=")[1] || link.split("/").pop();
+
+container.innerHTML =
+`<iframe class="player"
+src="https://www.youtube.com/embed/${id}?autoplay=1"
+frameborder="0"
+allow="autoplay; encrypted-media"
+allowfullscreen></iframe>`;
+
+}
+
+else if(link.includes("instagram.com")){
+
+container.innerHTML =
+`<iframe class="player"
+src="${link}embed"
+frameborder="0"></iframe>`;
+
+}
+
+else if(link.includes(".m3u8")){
+
+if(Hls.isSupported()){
+const hls = new Hls();
+hls.loadSource(link);
+hls.attachMedia(video);
+}
+
+}
+
+}
+
+loadStream(streamLink);
     
     // Watchlist Management
     class WatchlistManager {
