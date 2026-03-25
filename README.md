@@ -1,46 +1,19 @@
-# 💰 [PayWeb](https://youtu.be/TrsXoI-JAW8) | [Demo](https://TechifyBots.github.io/PayWeb)
+# 💰 [Live Stream]() | [Demo](https://TechifyBots.github.io/PayWeb)
 
-A clean and simple webpage to accept payments from both **Indian** and **international** users.
+A clean and simple webpage to accept livestream from live.
 
 Built using **HTML**, **Tailwind CSS**, and **JavaScript**, this page is designed to make it easy for people to support or pay you using popular payment methods — no backend needed.
 
 ---
 
-## 🌍 What it Does
-
-### For Indian Users ✅
-- Shows your **QR code** for UPI payments
-- Option to **download QR** or **copy UPI ID**
-- Smart link to **open installed UPI apps** directly
-
-### For International Users ✅
-- Buttons to:
-  - Open your **PayPal** link
-  - Visit **Buy Me a Coffee**
-  - **Copy Binance Wallet Address**
-
----
+## 🌍 What it 
 
 ## 🛠️ Built With
 
 - HTML
 - Tailwind CSS
 - JavaScript (Vanilla)
----
-
-## 🌍 Branches
-
-- **main**: Contains both India and International payment methods.  
-- **India**: Contains only India-specific payment methods (UPI, QR code, etc.).  
-- **International**: Contains only International payment methods (PayPal, Binance, Buy Me a Coffee, etc.).
-
----
-
-## 📷 Preview
-
-- [India's Payment Method](https://i.ibb.co/qM1vSp8W/photo-2025-04-24-12-22-56-7496854170943619092.jpg)
-- [International Payment Method](https://i.ibb.co/KjtSHtnd/photo-2025-04-24-12-22-15-7496854003439894544.jpg)
-
+  
 ---
 
 ## 📂 How to Deploy on [Vercel](https://vercel.com/)
@@ -60,20 +33,15 @@ Built using **HTML**, **Tailwind CSS**, and **JavaScript**, this page is designe
   - Just click on "Deploy" to begin the deployment process.
   - Choose the Branch:
       - Vercel will prompt you to choose which branch to deploy.
-        - `main`: If you want to deploy both India and International payment methods.
-        - `India`: If you only want to deploy India-specific payment methods.
-        - `International`: If you only want to deploy International payment methods.
-  - Deploy the Branch:
-    - After selecting the branch, Vercel will start deploying the branch. You’ll see a progress bar while it builds and deploys the site.
-
+        - `main`: If you want to deploy both 
 ---
 
 ## 🙌 Why I Built This
 
-To make it easier for friends, clients, and supporters to receive payments — no matter where they’re from.
+To make it easier for friends, clients, and supporters to live match
 
 ---
 
 ## 🥳 CREDIT
 
-- [TechifyBots](https://github.com/TechifyBots)
+MR
