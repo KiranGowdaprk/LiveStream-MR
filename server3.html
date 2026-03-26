@@ -1892,7 +1892,7 @@
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
 
-    const streamLink = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"; // paste stream link here
+    const streamLink = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"; 
 
 const video = document.getElementById("player");
 const container = document.querySelector(".player-container");
@@ -1904,12 +1904,16 @@ console.log("No stream link added");
 return;
 }
 
+link = link.trim();
+
+
+// YOUTUBE
 if(link.includes("youtube.com") || link.includes("youtu.be")){
 
 let id = link.split("v=")[1] || link.split("/").pop();
 
-container.innerHTML =
-`<iframe class="player"
+container.innerHTML = `
+<iframe class="player"
 src="https://www.youtube.com/embed/${id}?autoplay=1"
 frameborder="0"
 allow="autoplay; encrypted-media"
@@ -1917,15 +1921,34 @@ allowfullscreen></iframe>`;
 
 }
 
+
+// INSTAGRAM
 else if(link.includes("instagram.com")){
 
-container.innerHTML =
-`<iframe class="player"
+container.innerHTML = `
+<iframe class="player"
 src="${link}embed"
-frameborder="0"></iframe>`;
+frameborder="0"
+allowfullscreen></iframe>`;
 
 }
 
+
+// VIMEO
+else if(link.includes("vimeo.com")){
+
+let id = link.split("/").pop();
+
+container.innerHTML = `
+<iframe class="player"
+src="https://player.vimeo.com/video/${id}"
+frameborder="0"
+allowfullscreen></iframe>`;
+
+}
+
+
+// HLS STREAM (.m3u8)
 else if(link.includes(".m3u8")){
 
 if(Hls.isSupported()){
@@ -1933,6 +1956,29 @@ const hls = new Hls();
 hls.loadSource(link);
 hls.attachMedia(video);
 }
+else{
+video.src = link;
+}
+
+}
+
+
+// DIRECT VIDEO
+else if(
+link.includes(".mp4") ||
+link.includes(".webm") ||
+link.includes(".ogg")
+){
+
+video.src = link;
+
+}
+
+
+// OTHER LINKS
+else{
+
+video.src = link;
 
 }
 
