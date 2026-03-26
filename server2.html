@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
+  <head>
+    <script src='//libtl.com/sdk.js' data-zone='10784508' data-sdk='show_10784508'></script>
+    <script>(function(s){s.dataset.zone='10787296',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='10787308',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  </head>
+
+  
   
 <head>
   <meta charset="UTF-8" />
@@ -1697,6 +1705,7 @@
               </button>
             </div>
             
+
             <div class="video-stats">
               <div class="stat-item">
                 <i class="fas fa-eye"></i>
@@ -1883,7 +1892,7 @@
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
 
-    const streamLink = "https://crickcast-fam.pages.dev/player?url=https%3A%2F%2Fin-mc-flive.fancode.com%2Fmumbai%2F141449_english_hls_2b45087d4a92556_1ta-di_h264%2F360p.m3u8%3Fhdntl%3DExpires%3D1774351810~_GO%3DGenerated~acl%3D%2Fmumbai%2F141449_english_hls_2b45087d4a92556_1ta-di_h264%2F*~Signature%3DAYUBS8rYOLvVrXDgdhWj-R_cUkmKKDQdls8I3XrngxXmYVYK41AvRcaxzN1kUi2a7TgqiHgts6fCYTyDEPyu-Sj08jUJ"; // Paste your live stream link here
+    const streamLink = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8"; // paste stream link here
 
 const video = document.getElementById("player");
 const container = document.querySelector(".player-container");
@@ -1895,7 +1904,6 @@ console.log("No stream link added");
 return;
 }
 
-// YouTube
 if(link.includes("youtube.com") || link.includes("youtu.be")){
 
 let id = link.split("v=")[1] || link.split("/").pop();
@@ -1909,7 +1917,6 @@ allowfullscreen></iframe>`;
 
 }
 
-// Instagram
 else if(link.includes("instagram.com")){
 
 container.innerHTML =
@@ -1919,7 +1926,6 @@ frameborder="0"></iframe>`;
 
 }
 
-// HLS live stream (.m3u8)
 else if(link.includes(".m3u8")){
 
 if(Hls.isSupported()){
@@ -1930,29 +1936,9 @@ hls.attachMedia(video);
 
 }
 
-// MP4 live or recorded
-else if(link.includes(".mp4")){
-
-video.src = link;
-video.play();
-
-}
-
-// Default iframe for other streams
-else{
-
-container.innerHTML =
-`<iframe class="player"
-src="${link}"
-frameborder="0"
-allowfullscreen></iframe>`;
-
-}
-
 }
 
 loadStream(streamLink);
-
     
     // Watchlist Management
     class WatchlistManager {
@@ -2427,5 +2413,25 @@ loadStream(streamLink);
     });
 
   </script>
+
+
+
+
+
+<script>
+show_10784508({
+  type: 'inApp',
+  inAppSettings: {
+    frequency: 2,
+    capping: 0.133,   // 8 minutes (0.133 hours)
+    interval: 60,     // 60 seconds between ads
+    timeout: 15,      // first ad after 15 seconds
+    everyPage: false
+  }
+})
+</script>
+
+  
+  
 </body>
   </html>
