@@ -2423,9 +2423,9 @@ show_10784508({
   type: 'inApp',
   inAppSettings: {
     frequency: 2,
-    capping: 0.1,
-    interval: 30,
-    timeout: 5,
+    capping: 0.133,   // 8 minutes (0.133 hours)
+    interval: 60,     // 60 seconds between ads
+    timeout: 15,      // first ad after 15 seconds
     everyPage: false
   }
 })
