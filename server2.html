@@ -1883,7 +1883,7 @@
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
 
-    const streamLink = "https://in-mc-flive.fancode.com/mumbai/141450_english_hls_2b415bd15227962_1ta-di_h264/1080p.m3u8?hdntl=Expires=1774530926~_GO=Generated~acl=/mumbai/141450_english_hls_2b415bd15227962_1ta-di_h264/*~Signature=AeCY5MLyZsw0OWOENnP6cYY0quGSAzIG7MumxzoBr5ZbVs7uqdVm1GwpbPXu6wCQptGVmNFfGChE7e9lLWs_W9jS_KwM"; // paste stream link here
+    const streamLink = "https://in-mc-flive.fancode.com/mumbai/141450_english_hls_2b415bd15227962_1ta-di_h264/1080p.m3u8?hdntl=Expires=1774530926~_GO=Generated~acl=/mumbai/141450_english_hls_2b415bd15227962_1ta-di_h264/*~Signature=AeCY5MLyZsw0OWOENnP6cYY0quGSAzIG7MumxzoBr5ZbVs7uqdVm1GwpbPXu6wCQptGVmNFfGChE7e9lLWs_W9jS_KwM"; // Paste your live stream link here
 
 const video = document.getElementById("player");
 const container = document.querySelector(".player-container");
@@ -1895,6 +1895,7 @@ console.log("No stream link added");
 return;
 }
 
+// YouTube
 if(link.includes("youtube.com") || link.includes("youtu.be")){
 
 let id = link.split("v=")[1] || link.split("/").pop();
@@ -1908,6 +1909,7 @@ allowfullscreen></iframe>`;
 
 }
 
+// Instagram
 else if(link.includes("instagram.com")){
 
 container.innerHTML =
@@ -1917,6 +1919,7 @@ frameborder="0"></iframe>`;
 
 }
 
+// HLS live stream (.m3u8)
 else if(link.includes(".m3u8")){
 
 if(Hls.isSupported()){
@@ -1927,9 +1930,29 @@ hls.attachMedia(video);
 
 }
 
+// MP4 live or recorded
+else if(link.includes(".mp4")){
+
+video.src = link;
+video.play();
+
+}
+
+// Default iframe for other streams
+else{
+
+container.innerHTML =
+`<iframe class="player"
+src="${link}"
+frameborder="0"
+allowfullscreen></iframe>`;
+
+}
+
 }
 
 loadStream(streamLink);
+
     
     // Watchlist Management
     class WatchlistManager {
