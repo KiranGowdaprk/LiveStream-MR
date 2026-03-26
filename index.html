@@ -1371,12 +1371,28 @@ window.addEventListener("load", hidePreloader);
 </script>
 
 
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw2.js')
+  .then(function(registration){
+    console.log("Service Worker Registered");
+  })
+  .catch(function(error){
+    console.log("Service Worker Error:", error);
+  });
+}
+</script>
+  
+
+
   <script>
 if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('/sw2.js');
 }
 </script>
 
+  
 
   
 </body>
