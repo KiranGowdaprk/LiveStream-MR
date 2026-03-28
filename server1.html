@@ -1698,7 +1698,7 @@
           <video id="player" class="player" controls playsinline></video>
           <div class="video-info">
             <div class="video-header">
-              <h1 class="video-title">Cricket Server</h1>
+              <h1 class="video-title">Cricket Live Match Servers</h1>
               <button class="bookmark-btn" id="bookmarkBtn" title="Add to Watchlist">
                 <i class="far fa-bookmark bookmark-icon"></i>
                 <i class="fas fa-check check-icon"></i>
@@ -1714,9 +1714,9 @@
               <div class="stat-item">
   <i class="fas fa-server"></i>
   <select id="streamSelect" style="background: transparent; color: var(--text-primary); border: none; outline: none; font-weight: 600;">
-    <option value="https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8">Server 1</option>
-    <option value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Server 2</option>
-    <option value="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">Server 3</option>
+    <option value="https://amg01269-amg01269c1-sportstribal-emea-5204.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg01269-willowtvfast-willowplus-sportstribalemea/playlist.m3u8">Server 1</option>
+    <option value="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">Server 2</option>
+    <option value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Server 3</option>
   </select>
 </div>
             <div class="stat-item quality">
@@ -1730,9 +1730,16 @@
   </select>
 </div>
               <div class="stat-item">
-                <i class="fas fa-shield-alt"></i>
-                <span>Secure</span>
-              </div>
+  <i class="fas fa-tachometer-alt"></i>
+  <select id="speedSelect" style="background:transparent;border:none;color:#fff;font-weight:600;outline:none;">
+    <option value="0.5">0.5x</option>
+    <option value="0.75">0.75x</option>
+    <option value="1" selected>1x</option>
+    <option value="1.25">1.25x</option>
+    <option value="1.5">1.5x</option>
+    <option value="2">2x</option>
+  </select>
+</div>
             </div>
 <div id="streamnow"></div>
             <div class="action-buttons">
@@ -1988,6 +1995,20 @@ setInterval(updateViewers,5000);
 updateViewers();
 
 
+
+    // Get your video element (Plyr)
+const player = new Plyr('#player'); // Make sure your video has id="player"
+
+// Speed control dropdown
+const speedSelect = document.getElementById('speedSelect'); // your <select> for speed
+
+// Listen for speed change
+speedSelect.addEventListener('change', function() {
+    const selectedSpeed = parseFloat(this.value);
+    player.speed = selectedSpeed;
+});
+
+    
     
     // Watchlist Management
     class WatchlistManager {
@@ -2473,8 +2494,8 @@ show_10784508({
   inAppSettings: {
     frequency: 2,
     capping: 0.133,   // 8 minutes (0.133 hours)
-    interval: 60,     // 60 seconds between ads
-    timeout: 15,      // first ad after 15 seconds
+    interval: 180,     // 60 seconds between ads
+    timeout: 40,      // first ad after 15 seconds
     everyPage: false
   }
 })
