@@ -999,6 +999,93 @@ var _0x9975=["\x6B\x65\x79\x64\x6F\x77\x6E","\x75\x6E\x64\x65\x66\x69\x6E\x65\x6
 
 
 
+<style>
+
+.popup-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10002;
+}
+
+.popup-box{
+  width:320px;
+  background:rgba(25,25,35,.8);
+  border:1px solid rgba(0,255,170,0.35);
+  border-radius:18px;
+  backdrop-filter:blur(12px);
+  padding:1.8rem;
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,255,170,0.3);
+  position:relative;
+}
+
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:15px;
+  background:none;
+  border:none;
+  color:#00ffbf;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.popup-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.popup-btn{
+  border-radius:10px;
+  padding:12px 0;
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+}
+
+.join-btn{
+  background:linear-gradient(135deg,#00ffbf,#008cff);
+  color:#fff;
+}
+
+.already-btn{
+  background:rgba(255,255,255,0.12);
+  color:#fff;
+}
+
+
+</style>
+
+
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+   
+    <div>Support Us</div>
+    <div>Join our Channel for live matches and instant updates..</div>
+    <div class="popup-buttons">
+      <a href="https://t.me/+r_4JF-IieX0wNjU9" target="_blank" class="popup-btn join-btn">Join Now</a>
+      <button class="popup-btn already-btn" onclick="closePopup()">Already Joined</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function closePopup(){
+  document.getElementById('popup').style.display='none';
+}
+</script>
+
+  
+
+
   
 
 
