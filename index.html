@@ -1005,7 +1005,7 @@ var _0x9975=["\x6B\x65\x79\x64\x6F\x77\x6E","\x75\x6E\x64\x65\x66\x69\x6E\x65\x6
   left:0;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,.7);
+  background:rgba(0,0,0,.4);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -1014,31 +1014,36 @@ var _0x9975=["\x6B\x65\x79\x64\x6F\x77\x6E","\x75\x6E\x64\x65\x66\x69\x6E\x65\x6
 
 .popup-box{
   width:320px;
-  background:rgba(25,25,35,.8);
-  border:1px solid rgba(0,255,170,0.35);
-  border-radius:18px;
-  backdrop-filter:blur(12px);
+  background:#ffffff;
+  border-radius:16px;
   padding:1.8rem;
   text-align:center;
-  box-shadow:0 0 25px rgba(0,255,170,0.3);
   position:relative;
+
+  /* Glow effect */
+  border:2px solid #00c6ff;
+  box-shadow:
+    0 0 10px rgba(0,198,255,0.5),
+    0 0 20px rgba(0,198,255,0.3),
+    0 0 30px rgba(0,198,255,0.2);
 }
 
-.close-btn{
-  position:absolute;
-  top:10px;
-  right:15px;
-  background:none;
-  border:none;
-  color:#00ffbf;
-  font-size:22px;
-  cursor:pointer;
+.popup-title{
+  font-size:20px;
+  font-weight:700;
+  color:#222;
+}
+
+.popup-text{
+  margin-top:10px;
+  color:#555;
 }
 
 .popup-buttons{
   display:flex;
   flex-direction:column;
   gap:10px;
+  margin-top:15px;
 }
 
 .popup-btn{
@@ -1047,31 +1052,48 @@ var _0x9975=["\x6B\x65\x79\x64\x6F\x77\x6E","\x75\x6E\x64\x65\x66\x69\x6E\x65\x6
   font-weight:600;
   cursor:pointer;
   border:none;
+  transition:0.3s;
 }
 
 .join-btn{
-  background:linear-gradient(135deg,#00ffbf,#008cff);
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
   color:#fff;
+
+  /* Button glow */
+  box-shadow:
+    0 0 10px rgba(0,198,255,0.6),
+    0 0 20px rgba(0,198,255,0.4);
+}
+
+.join-btn:hover{
+  transform:scale(1.05);
 }
 
 .already-btn{
-  background:rgba(255,255,255,0.12);
-  color:#fff;
+  background:#f2f2f2;
+  color:#333;
 }
-
 
 </style>
 
-
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-   
-    <div>Support Us</div>
-    <div>Join our Channel for live matches and instant updates..</div>
-    <div class="popup-buttons">
-      <a href="https://t.me/+r_4JF-IieX0wNjU9" target="_blank" class="popup-btn join-btn">Join Now</a>
-      <button class="popup-btn already-btn" onclick="closePopup()">Already Joined</button>
+
+    <div class="popup-title">Support Us</div>
+    <div class="popup-text">
+      Join our Channel for live matches and instant updates.
     </div>
+
+    <div class="popup-buttons">
+      <a href="https://t.me/+6kM9usVkpkI2MjY9" target="_blank" class="popup-btn join-btn">
+        Join Now
+      </a>
+
+      <button class="popup-btn already-btn" onclick="closePopup()">
+        Already Joined
+      </button>
+    </div>
+
   </div>
 </div>
 
@@ -1080,6 +1102,7 @@ function closePopup(){
   document.getElementById('popup').style.display='none';
 }
 </script>
+
 
   
 
