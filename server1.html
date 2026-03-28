@@ -1712,12 +1712,16 @@
                   <span id="viewerCount">0 Watching</span>
               </div>
               <div class="stat-item">
-                <i class="fas fa-clock"></i>
-                <span>Just Now</span>
-              </div>
+  <i class="fas fa-server"></i>
+  <select id="streamSelect" style="background: transparent; color: var(--text-primary); border: none; outline: none; font-weight: 600;">
+    <option value="https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_ts/master.m3u8">Server 1</option>
+    <option value="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8">Server 2</option>
+    <option value="https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8">Server 3</option>
+  </select>
+</div>
             <div class="stat-item quality">
-  <i class="fas fa-tv"></i> <!-- This is your “quality” icon -->
-  <select id="qualitySelect">
+  <i class="fas fa-tv"></i> <!-- Quality icon -->
+  <select id="qualitySelect" style="background: transparent; color: var(--text-primary); border: none; outline: none; font-weight: 600; cursor: pointer;">
     <option value="-1">Auto</option>
     <option value="360">360p</option>
     <option value="480">480p</option>
@@ -1898,53 +1902,60 @@
   <script src="https://innoshiv.github.io/Sources/assets/js/add/streampage.js"></script>
   <script>
 
-    const streamLink = "https://amg01269-amg01269c1-sportstribal-emea-5204.playouts.now.amagi.tv/ts-eu-w1-n2/playlist/amg01269-willowtvfast-willowplus-sportstribalemea/playlist.m3u8"; // paste stream link here
+    
+const video = document.getElementById('player');
+  const qualitySelect = document.getElementById('qualitySelect');
+  const streamSelect = document.getElementById('streamSelect');
 
-const video = document.getElementById("player");
-const container = document.querySelector(".player-container");
+  let hls;
 
-function loadStream(link){
+  function initPlayer(url) {
+    if (hls) hls.destroy();
 
-if(!link){
-console.log("No stream link added");
-return;
-}
+    if (Hls.isSupported()) {
+      hls = new Hls({ capLevelToPlayerSize: true });
+      hls.loadSource(url);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        console.log('Available Qualities:', hls.levels.map(l => l.height));
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = url;
+    }
 
-if(link.includes("youtube.com") || link.includes("youtu.be")){
+    // Plyr
+    new Plyr(video, {
+      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen']
+    });
+  }
 
-let id = link.split("v=")[1] || link.split("/").pop();
+  // Init first stream
+  initPlayer(streamSelect.value);
 
-container.innerHTML =
-`<iframe class="player"
-src="https://www.youtube.com/embed/${id}?autoplay=1"
-frameborder="0"
-allow="autoplay; encrypted-media"
-allowfullscreen></iframe>`;
+  // Stream switch
+  streamSelect.addEventListener('change', () => {
+    initPlayer(streamSelect.value);
+  });
 
-}
+  // Quality switch
+  qualitySelect.addEventListener('change', () => {
+    const selected = parseInt(qualitySelect.value);
+    if (!hls) return;
 
-else if(link.includes("instagram.com")){
+    if (selected === -1) {
+      hls.currentLevel = -1; // Auto
+    } else {
+      const levelIndex = hls.levels.findIndex(l => l.height === selected);
+      if (levelIndex >= 0) hls.currentLevel = levelIndex;
+    }
+  });
 
-container.innerHTML =
-`<iframe class="player"
-src="${link}embed"
-frameborder="0"></iframe>`;
+  // Auto reconnect
+  video.addEventListener('error', () => {
+    console.log('Stream error detected, reconnecting...');
+    setTimeout(() => initPlayer(streamSelect.value), 3000);
+  });
 
-}
-
-else if(link.includes(".m3u8")){
-
-if(Hls.isSupported()){
-const hls = new Hls();
-hls.loadSource(link);
-hls.attachMedia(video);
-}
-
-}
-
-}
-
-loadStream(streamLink);
 
 
 
