@@ -1709,7 +1709,7 @@
             <div class="video-stats">
               <div class="stat-item">
                 <i class="fas fa-eye"></i>
-                <span>Streaming</span>
+                  <span id="viewerCount">0 Watching</span>
               </div>
               <div class="stat-item">
                 <i class="fas fa-clock"></i>
@@ -1939,6 +1939,38 @@ hls.attachMedia(video);
 }
 
 loadStream(streamLink);
+
+
+
+    // Fake Live Viewer Counter
+
+let viewers = Math.floor(Math.random() * 800) + 400; // starting viewers
+
+function updateViewers(){
+
+  let change = Math.floor(Math.random() * 20);
+
+  if(Math.random() > 0.5){
+    viewers += change;
+  }else{
+    viewers -= change;
+  }
+
+  if(viewers < 200) viewers = 200;
+  if(viewers > 5000) viewers = 5000;
+
+  document.getElementById("viewerCount").innerText =
+  viewers.toLocaleString() + " Watching";
+
+}
+
+// update every 5 seconds
+setInterval(updateViewers,5000);
+
+// start immediately
+updateViewers();
+
+
     
     // Watchlist Management
     class WatchlistManager {
