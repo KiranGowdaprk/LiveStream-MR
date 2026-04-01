@@ -1,22 +1,22 @@
 <!doctype html>
 <html lang="en">
-    
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Cricket — Live Streams</title>
+    <title>SPORTLINK — Live Streams</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-
-
-    <head>
+   
+    
+    
+      <head>
     <script src='//libtl.com/sdk.js' data-zone='10784508' data-sdk='show_10784508'></script>
     <script>(function(s){s.dataset.zone='10787296',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='10787308',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </head>
-
-
+    
+    
+    
     
     <style>
         :root {
@@ -32,6 +32,7 @@
             --text2: #8baac8;
             --glow: rgba(244, 180, 0, 0.18);
             --whatsapp: #25D366;
+            --telegram: #229ED9;
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -169,9 +170,11 @@
             gap: 10px;
         }
 
-        .tg-btn {
+        /* WhatsApp button */
+        .wa-btn {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             background: linear-gradient(135deg, var(--whatsapp), #128C7E);
             border: none;
@@ -184,15 +187,36 @@
             transition: all 0.25s;
             box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .tg-btn:hover {
+        .wa-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.55);
         }
-        .tg-btn svg { width: 16px; height: 16px; }
+        .wa-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+        /* Telegram button */
+        .tg-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--telegram), #1a7bbf);
+            border: none;
+            padding: 9px 16px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 14px rgba(34, 158, 217, 0.35);
+            text-decoration: none;
+        }
+        .tg-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 158, 217, 0.55);
+        }
+        .tg-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 
         /* === PLAYER SECTION === */
         .player-section {
@@ -295,27 +319,74 @@
             height: 18px;
             transition: transform 0.2s;
         }
-        .fullscreen-btn:hover svg {
-            transform: scale(1.08);
-        }
+        .fullscreen-btn:hover svg { transform: scale(1.08); }
 
-        /* Fullscreen state icon swap */
         .fullscreen-btn .icon-expand { display: block; }
         .fullscreen-btn .icon-compress { display: none; }
         .fullscreen-btn.is-fullscreen .icon-expand { display: none; }
         .fullscreen-btn.is-fullscreen .icon-compress { display: block; }
 
-        /* Native fullscreen: make iframe fill */
+        /* === NATIVE FULLSCREEN (desktop) === */
         .video-wrapper:-webkit-full-screen { padding-bottom: 0; height: 100%; }
         .video-wrapper:-moz-full-screen    { padding-bottom: 0; height: 100%; }
         .video-wrapper:fullscreen          { padding-bottom: 0; height: 100%; }
-
         .video-wrapper:-webkit-full-screen iframe,
         .video-wrapper:-moz-full-screen iframe,
         .video-wrapper:fullscreen iframe {
             position: static;
             width: 100%;
             height: 100%;
+        }
+
+        /* === FAKE FULLSCREEN for mobile (when native FS is blocked) === */
+        .video-wrapper.fake-fs {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            padding-bottom: 0 !important;
+            z-index: 9999 !important;
+            border-radius: 0 !important;
+        }
+        .video-wrapper.fake-fs iframe {
+            position: absolute !important;
+            top: 0; left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* === ROTATE OVERLAY (portrait fake-fs hint) === */
+        .rotate-hint {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background: rgba(5,13,24,0.96);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--gold);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            letter-spacing: 2px;
+            pointer-events: none;
+            animation: fadeHint 0.3s ease;
+        }
+        .rotate-hint.show { display: flex; }
+        .rotate-hint svg {
+            width: 64px;
+            height: 64px;
+            animation: spinPhone 1.2s ease-in-out forwards;
+        }
+        @keyframes spinPhone {
+            0%   { transform: rotate(0deg); }
+            60%  { transform: rotate(90deg) scale(1.1); }
+            100% { transform: rotate(90deg); }
+        }
+        @keyframes fadeHint {
+            from { opacity: 0; } to { opacity: 1; }
         }
 
         /* === INFO STRIP === */
@@ -369,10 +440,11 @@
         }
         @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        @media (max-width: 560px) {
-            header { padding: 14px 16px; }
-            .brand-text h1 { font-size: 22px; }
-            .tg-btn span { display: none; }
+        @media (max-width: 640px) {
+            header { padding: 14px 16px; gap: 8px; }
+            .brand-text h1 { font-size: 20px; }
+            .wa-btn span, .tg-btn span { display: none; }
+            .wa-btn, .tg-btn { padding: 9px 11px; }
             .fullscreen-btn { bottom: 10px; right: 10px; width: 36px; height: 36px; }
         }
     </style>
@@ -382,10 +454,23 @@
 <!-- BG FX -->
 <div class="bg-layer"></div>
 
+<!-- ROTATE HINT OVERLAY -->
+<div class="rotate-hint" id="rotate-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2"/>
+        <path d="M9 22h6"/>
+        <path d="M12 18h.01"/>
+        <!-- rotation arrows -->
+        <path d="M2 10 A10 10 0 0 1 12 2" stroke="var(--gold)" stroke-width="1.4"/>
+        <polyline points="1 6 2 10 6 9" stroke="var(--gold)" stroke-width="1.4"/>
+    </svg>
+    Rotate for Fullscreen
+</div>
+
 <!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker">
-        <span>🏏 FM - MR Sports</span>
+        <span>🏏 MR SS1 Hindi</span>
         <span>⚡ HD Streaming Available</span>
         <span>🏆 Live Matches 24/7</span>
         <span>📱 Watch on Any Device</span>
@@ -402,12 +487,12 @@
 <header>
     <div class="brand">
         <div class="logo-wrap">
-            <div class="logo">FZ-MR</div>
+            <div class="logo">MR FZ</div>
             <div class="pulse-ring"></div>
         </div>
         <div class="brand-text">
-            <h1>MR</h1>
-            <span>Live Stream </span>
+            <h1>SS1 by FilmSone</h1>
+            <span>Live Stream Hub</span>
         </div>
     </div>
     <div class="header-right">
@@ -415,9 +500,21 @@
             <div class="live-dot"></div>
             Live
         </div>
+
+        <!-- WhatsApp -->
+        <a href="https://t.me/+6kM9usVkpkI2MjY9" target="_blank" rel="noopener" class="wa-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.471 1.338C15.513.455 13.258 0 10.899 0 4.921 0 .036 4.884.036 10.859c0 1.906.499 3.766 1.441 5.397L0 24l8.059-2.415c1.576.86 3.368 1.314 5.22 1.314 5.979 0 10.863-4.884 10.863-10.859 0-2.9-1.164-5.631-3.28-7.681zm-6.572 20.96c-1.627 0-3.224-.435-4.613-1.256l-.331-.196-3.438 1.029.978-3.569-.229-.363C1.578 15.73 1.06 13.338 1.06 10.859c0-4.922 4.008-8.927 8.935-8.927 2.383 0 4.623.927 6.308 2.609 1.684 1.681 2.611 3.923 2.611 6.306 0 4.922-4.008 8.927-8.935 8.927zm4.872-6.665c-.268-.134-1.581-.78-1.827-.869-.247-.088-.427-.134-.606.134-.179.268-.694.869-.851 1.048-.157.179-.315.201-.583.067-.268-.134-1.131-.415-2.154-1.326-.797-.711-1.335-1.591-1.493-1.859-.157-.268-.017-.413.118-.546.121-.121.268-.314.402-.471.134-.157.179-.268.268-.447.089-.179.045-.335-.022-.468-.067-.134-.606-1.459-.83-1.997-.218-.526-.438-.454-.606-.462-.157-.009-.335-.009-.514-.009-.179 0-.468.067-.714.335-.247.268-1.331 1.298-1.331 3.16 0 1.863 1.36 3.67 1.548 3.927.189.258 2.658 4.057 6.437 5.688.896.391 1.595.625 2.139.8.896.278 1.711.239 2.356.145.72-.107 2.215-.905 2.527-1.78.312-.876.312-1.626.218-1.78-.093-.156-.334-.25-.603-.384z"/>
+            </svg>
+            <span>WhatsApp</span>
+        </a>
+
+        <!-- Telegram -->
         <a href="https://t.me/+6kM9usVkpkI2MjY9" target="_blank" rel="noopener" class="tg-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.471 1.338C15.513.455 13.258 0 10.899 0 4.921 0 0.036 4.884 0.036 10.859c0 1.906.499 3.766 1.441 5.397L0 24l8.059-2.415c1.576.86 3.368 1.314 5.22 1.314 5.979 0 10.863-4.884 10.863-10.859 0-2.9-1.164-5.631-3.28-7.681zm-6.572 20.96c-1.627 0-3.224-.435-4.613-1.256l-.331-.196-3.438 1.029.978-3.569-.229-.363C1.578 15.73 1.06 13.338 1.06 10.859c0-4.922 4.008-8.927 8.935-8.927 2.383 0 4.623.927 6.308 2.609 1.684 1.681 2.611 3.923 2.611 6.306 0 4.922-4.008 8.927-8.935 8.927zm4.872-6.665c-.268-.134-1.581-.78-1.827-.869-.247-.088-.427-.134-.606.134-.179.268-.694.869-.851 1.048-.157.179-.315.201-.583.067-.268-.134-1.131-.415-2.154-1.326-.797-.711-1.335-1.591-1.493-1.859-.157-.268-.017-.413.118-.546.121-.121.268-.314.402-.471.134-.157.179-.268.268-.447.089-.179.045-.335-.022-.468-.067-.134-.606-1.459-.83-1.997-.218-.526-.438-.454-.606-.462-.157-.009-.335-.009-.514-.009-.179 0-.468.067-.714.335-.247.268-1.331 1.298-1.331 3.16 0 1.863 1.36 3.67 1.548 3.927.189.258 2.658 4.057 6.437 5.688.896.391 1.595.625 2.139.8.896.278 1.711.239 2.356.145.72-.107 2.215-.905 2.527-1.78.312-.876.312-1.626.218-1.78-.093-.156-.334-.25-.603-.384z"/></svg>
-            <span>Join Telegram</span>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            <span>Telegram</span>
         </a>
     </div>
 </header>
@@ -431,7 +528,7 @@
             <div class="channel-label">
                 <div class="channel-icon">🏏</div>
                 <div>
-                    <div class="channel-name">Star Sport 1</div>
+                    <div class="channel-name">Star Sport 1 Hindi</div>
                     <div class="channel-sub">Live HD Stream</div>
                 </div>
             </div>
@@ -443,18 +540,16 @@
 
         <!-- Video -->
         <div class="video-wrapper" id="video-wrapper">
-            <iframe id="cricket-video" src="https://mspannel.top/stream/rz/?watch=18283d4f5f13c0cac5cab4433a0ed8f0" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+            <iframe id="cricket-video" src="https://star-sport-1---hindi-hd.pages.dev/" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
 
             <!-- Fullscreen Button -->
             <button class="fullscreen-btn" id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">
-                <!-- Expand icon -->
                 <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="15 3 21 3 21 9"/>
                     <polyline points="9 21 3 21 3 15"/>
                     <line x1="21" y1="3" x2="14" y2="10"/>
                     <line x1="3" y1="21" x2="10" y2="14"/>
                 </svg>
-                <!-- Compress icon -->
                 <svg class="icon-compress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="4 14 10 14 10 20"/>
                     <polyline points="20 10 14 10 14 4"/>
@@ -472,11 +567,11 @@
             </div>
             <div class="info-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6s4-2 11-2 11 2 11 2v13s-4-2-11-2-11 2-11 2V6z"/></svg>
-                Star Sport 1
+                Star Sport 1 Hindi HD
             </div>
             <div class="info-item">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6s4-2 11-2 11 2 11 2v13s-4-2-11-2-11 2-11 2V6z"/></svg>
-                Star Sport 1
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                HD Available
             </div>
         </div>
 
@@ -485,7 +580,7 @@
 
 <!-- FOOTER -->
 <footer>
-    &copy; <span id="year"></span> Multi Racer — All rights reserved by FilmZone -MR
+    &copy; <span id="year"></span> All rights reserved by FZ - MR Sports
 </footer>
 
 <script>
@@ -493,43 +588,119 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     });
 
-    /* ===== FULLSCREEN ===== */
-    const wrapper = document.getElementById('video-wrapper');
-    const fsBtn   = document.getElementById('fullscreen-btn');
+    const wrapper   = document.getElementById('video-wrapper');
+    const fsBtn     = document.getElementById('fullscreen-btn');
+    const rotHint   = document.getElementById('rotate-hint');
+    const isMobile  = () => /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    let fakeFsActive = false;
+    let hintTimer    = null;
 
+    /* ── helpers ── */
+    function isPortrait() {
+        if (screen.orientation) return screen.orientation.type.startsWith('portrait');
+        return window.innerHeight > window.innerWidth;
+    }
+
+    function lockLandscape() {
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(() => {});
+        }
+    }
+
+    function unlockOrientation() {
+        if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+        }
+    }
+
+    function showRotateHint() {
+        rotHint.classList.add('show');
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => rotHint.classList.remove('show'), 2500);
+    }
+
+    /* ── enter fake fullscreen (mobile fallback) ── */
+    function enterFakeFs() {
+        fakeFsActive = true;
+        wrapper.classList.add('fake-fs');
+        fsBtn.classList.add('is-fullscreen');
+        fsBtn.title = 'Exit Fullscreen';
+        fsBtn.setAttribute('aria-label', 'Exit fullscreen');
+        document.body.style.overflow = 'hidden';
+
+        // Try to lock landscape; show hint if still portrait after a moment
+        lockLandscape();
+        setTimeout(() => {
+            if (isPortrait()) showRotateHint();
+        }, 400);
+    }
+
+    /* ── exit fake fullscreen ── */
+    function exitFakeFs() {
+        fakeFsActive = false;
+        wrapper.classList.remove('fake-fs');
+        fsBtn.classList.remove('is-fullscreen');
+        fsBtn.title = 'Fullscreen';
+        fsBtn.setAttribute('aria-label', 'Toggle fullscreen');
+        document.body.style.overflow = '';
+        unlockOrientation();
+        rotHint.classList.remove('show');
+        clearTimeout(hintTimer);
+    }
+
+    /* ── main toggle ── */
     function toggleFullscreen() {
-        const isFs = !!(
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement
-        );
+        const nativeFsEl = document.fullscreenElement ||
+                           document.webkitFullscreenElement ||
+                           document.mozFullScreenElement ||
+                           document.msFullscreenElement;
 
-        if (!isFs) {
+        if (nativeFsEl) {
+            /* exit native fullscreen */
+            (document.exitFullscreen ||
+             document.webkitExitFullscreen ||
+             document.mozCancelFullScreen ||
+             document.msExitFullscreen).call(document);
+        } else if (fakeFsActive) {
+            exitFakeFs();
+        } else {
+            /* try native fullscreen first */
             const req = wrapper.requestFullscreen ||
                         wrapper.webkitRequestFullscreen ||
                         wrapper.mozRequestFullScreen ||
                         wrapper.msRequestFullscreen;
-            if (req) req.call(wrapper);
-        } else {
-            const exit = document.exitFullscreen ||
-                         document.webkitExitFullscreen ||
-                         document.mozCancelFullScreen ||
-                         document.msExitFullscreen;
-            if (exit) exit.call(document);
+
+            if (req) {
+                req.call(wrapper).then(() => {
+                    /* native FS granted — also lock landscape on mobile */
+                    if (isMobile()) lockLandscape();
+                }).catch(() => {
+                    /* native FS blocked (common on mobile) — use fake FS */
+                    enterFakeFs();
+                });
+            } else {
+                /* no native FS API at all */
+                enterFakeFs();
+            }
         }
     }
 
+    /* ── sync button state with native FS changes ── */
     function onFsChange() {
-        const isFs = !!(
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement
-        );
-        fsBtn.classList.toggle('is-fullscreen', isFs);
-        fsBtn.title = isFs ? 'Exit Fullscreen' : 'Fullscreen';
-        fsBtn.setAttribute('aria-label', isFs ? 'Exit fullscreen' : 'Toggle fullscreen');
+        const isFs = !!(document.fullscreenElement ||
+                        document.webkitFullscreenElement ||
+                        document.mozFullScreenElement ||
+                        document.msFullscreenElement);
+
+        fsBtn.classList.toggle('is-fullscreen', isFs || fakeFsActive);
+        fsBtn.title = (isFs || fakeFsActive) ? 'Exit Fullscreen' : 'Fullscreen';
+        fsBtn.setAttribute('aria-label', (isFs || fakeFsActive) ? 'Exit fullscreen' : 'Toggle fullscreen');
+
+        if (isFs && isMobile()) {
+            lockLandscape();
+            setTimeout(() => { if (isPortrait()) showRotateHint(); }, 400);
+        }
+        if (!isFs) unlockOrientation();
     }
 
     document.addEventListener('fullscreenchange',       onFsChange);
@@ -537,9 +708,24 @@
     document.addEventListener('mozfullscreenchange',    onFsChange);
     document.addEventListener('MSFullscreenChange',     onFsChange);
 
+    /* ── double-tap to toggle ── */
     wrapper.addEventListener('dblclick', function(e) {
         if (!e.target.closest('.fullscreen-btn')) toggleFullscreen();
     });
+
+    /* ── hide rotate hint when user actually rotates ── */
+    window.addEventListener('orientationchange', () => {
+        if (!isPortrait()) rotHint.classList.remove('show');
+    });
+    screen.orientation && screen.orientation.addEventListener('change', () => {
+        if (!isPortrait()) rotHint.classList.remove('show');
+    });
+
+    /* ── exit fake FS on back button (Android) ── */
+    window.addEventListener('popstate', () => {
+        if (fakeFsActive) exitFakeFs();
+    });
+    if (fakeFsActive === false) history.pushState(null, '');
 </script>
 
 
@@ -557,5 +743,7 @@ show_10784508({
 </script>
 
 
+    
+    
 </body>
 </html>
