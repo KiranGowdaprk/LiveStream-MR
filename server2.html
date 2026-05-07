@@ -6,18 +6,15 @@
     <title>SPORTLINK — Live Streams</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Shaka Player -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.0/shaka-player.compiled.js"></script>
    
-    
-    
-      <head>
+    <!-- Ad scripts (original) -->
     <script src='//libtl.com/sdk.js' data-zone='10784508' data-sdk='show_10784508'></script>
     <script>(function(s){s.dataset.zone='10787296',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <script>(function(s){s.dataset.zone='10787308',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-  </head>
-    
-    
-    
-    
+
     <style>
         :root {
             --bg: #050d18;
@@ -280,11 +277,10 @@
             height: 0;
             background: #000;
         }
-        .video-wrapper iframe {
+        .video-wrapper video {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            border: none;
             background: #000;
         }
 
@@ -330,9 +326,9 @@
         .video-wrapper:-webkit-full-screen { padding-bottom: 0; height: 100%; }
         .video-wrapper:-moz-full-screen    { padding-bottom: 0; height: 100%; }
         .video-wrapper:fullscreen          { padding-bottom: 0; height: 100%; }
-        .video-wrapper:-webkit-full-screen iframe,
-        .video-wrapper:-moz-full-screen iframe,
-        .video-wrapper:fullscreen iframe {
+        .video-wrapper:-webkit-full-screen video,
+        .video-wrapper:-moz-full-screen video,
+        .video-wrapper:fullscreen video {
             position: static;
             width: 100%;
             height: 100%;
@@ -349,7 +345,7 @@
             z-index: 9999 !important;
             border-radius: 0 !important;
         }
-        .video-wrapper.fake-fs iframe {
+        .video-wrapper.fake-fs video {
             position: absolute !important;
             top: 0; left: 0;
             width: 100% !important;
@@ -451,39 +447,34 @@
 </head>
 <body>
 
-<!-- BG FX -->
 <div class="bg-layer"></div>
 
-<!-- ROTATE HINT OVERLAY -->
 <div class="rotate-hint" id="rotate-hint" aria-hidden="true">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <rect x="5" y="2" width="14" height="20" rx="2"/>
         <path d="M9 22h6"/>
         <path d="M12 18h.01"/>
-        <!-- rotation arrows -->
         <path d="M2 10 A10 10 0 0 1 12 2" stroke="var(--gold)" stroke-width="1.4"/>
         <polyline points="1 6 2 10 6 9" stroke="var(--gold)" stroke-width="1.4"/>
     </svg>
     Rotate for Fullscreen
 </div>
 
-<!-- TICKER -->
 <div class="ticker-wrap" aria-hidden="true">
     <div class="ticker">
-        <span>🏏 MR SS1 Hindi</span>
-        <span>⚡ HD Streaming Available</span>
-        <span>🏆 Live Matches 24/7</span>
+        <span>🏏 Live Sports</span>
+        <span>⚡ HD Streaming</span>
+        <span>🏆 24/7 Coverage</span>
         <span>📱 Watch on Any Device</span>
-        <span>💬 Join WhatsApp for Updates</span>
-        <span>🏏 SS1 Hindi HD Live</span>
-        <span>⚡ HD Streaming Available</span>
-        <span>🏆 Live Matches 24/7</span>
+        <span>💬 Join Telegram for Updates</span>
+        <span>🏏 Live Sports</span>
+        <span>⚡ HD Streaming</span>
+        <span>🏆 24/7 Coverage</span>
         <span>📱 Watch on Any Device</span>
-        <span>💬 Join WhatsApp for Updates</span>
+        <span>💬 Join Telegram for Updates</span>
     </div>
 </div>
 
-<!-- HEADER -->
 <header>
     <div class="brand">
         <div class="logo-wrap">
@@ -500,36 +491,25 @@
             <div class="live-dot"></div>
             Live
         </div>
-
-        <!-- WhatsApp -->
         <a href="https://t.me/+6kM9usVkpkI2MjY9" target="_blank" rel="noopener" class="wa-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.471 1.338C15.513.455 13.258 0 10.899 0 4.921 0 .036 4.884.036 10.859c0 1.906.499 3.766 1.441 5.397L0 24l8.059-2.415c1.576.86 3.368 1.314 5.22 1.314 5.979 0 10.863-4.884 10.863-10.859 0-2.9-1.164-5.631-3.28-7.681zm-6.572 20.96c-1.627 0-3.224-.435-4.613-1.256l-.331-.196-3.438 1.029.978-3.569-.229-.363C1.578 15.73 1.06 13.338 1.06 10.859c0-4.922 4.008-8.927 8.935-8.927 2.383 0 4.623.927 6.308 2.609 1.684 1.681 2.611 3.923 2.611 6.306 0 4.922-4.008 8.927-8.935 8.927zm4.872-6.665c-.268-.134-1.581-.78-1.827-.869-.247-.088-.427-.134-.606.134-.179.268-.694.869-.851 1.048-.157.179-.315.201-.583.067-.268-.134-1.131-.415-2.154-1.326-.797-.711-1.335-1.591-1.493-1.859-.157-.268-.017-.413.118-.546.121-.121.268-.314.402-.471.134-.157.179-.268.268-.447.089-.179.045-.335-.022-.468-.067-.134-.606-1.459-.83-1.997-.218-.526-.438-.454-.606-.462-.157-.009-.335-.009-.514-.009-.179 0-.468.067-.714.335-.247.268-1.331 1.298-1.331 3.16 0 1.863 1.36 3.67 1.548 3.927.189.258 2.658 4.057 6.437 5.688.896.391 1.595.625 2.139.8.896.278 1.711.239 2.356.145.72-.107 2.215-.905 2.527-1.78.312-.876.312-1.626.218-1.78-.093-.156-.334-.25-.603-.384z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.471 1.338C15.513.455 13.258 0 10.899 0 4.921 0 .036 4.884.036 10.859c0 1.906.499 3.766 1.441 5.397L0 24l8.059-2.415c1.576.86 3.368 1.314 5.22 1.314 5.979 0 10.863-4.884 10.863-10.859 0-2.9-1.164-5.631-3.28-7.681zm-6.572 20.96c-1.627 0-3.224-.435-4.613-1.256l-.331-.196-3.438 1.029.978-3.569-.229-.363C1.578 15.73 1.06 13.338 1.06 10.859c0-4.922 4.008-8.927 8.935-8.927 2.383 0 4.623.927 6.308 2.609 1.684 1.681 2.611 3.923 2.611 6.306 0 4.922-4.008 8.927-8.935 8.927zm4.872-6.665c-.268-.134-1.581-.78-1.827-.869-.247-.088-.427-.134-.606.134-.179.268-.694.869-.851 1.048-.157.179-.315.201-.583.067-.268-.134-1.131-.415-2.154-1.326-.797-.711-1.335-1.591-1.493-1.859-.157-.268-.017-.413.118-.546.121-.121.268-.314.402-.471.134-.157.179-.268.268-.447.089-.179.045-.335-.022-.468-.067-.134-.606-1.459-.83-1.997-.218-.526-.438-.454-.606-.462-.157-.009-.335-.009-.514-.009-.179 0-.468.067-.714.335-.247.268-1.331 1.298-1.331 3.16 0 1.863 1.36 3.67 1.548 3.927.189.258 2.658 4.057 6.437 5.688.896.391 1.595.625 2.139.8.896.278 1.711.239 2.356.145.72-.107 2.215-.905 2.527-1.78.312-.876.312-1.626.218-1.78-.093-.156-.334-.25-.603-.384z"/></svg>
             <span>WhatsApp</span>
         </a>
-
-        <!-- Telegram -->
         <a href="https://t.me/+6kM9usVkpkI2MjY9" target="_blank" rel="noopener" class="tg-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
             <span>Telegram</span>
         </a>
     </div>
 </header>
 
-<!-- PLAYER SECTION -->
 <main class="player-section">
     <div class="player-card">
-
-        <!-- Channel Bar -->
         <div class="channel-bar">
             <div class="channel-label">
                 <div class="channel-icon">🏏</div>
                 <div>
-                    <div class="channel-name">Star Sport 1 Hindi</div>
-                    <div class="channel-sub">Live HD Stream</div>
+                    <div class="channel-name">Live Stream</div>
+                    <div class="channel-sub">HD Quality</div>
                 </div>
             </div>
             <div class="live-badge" style="font-size:11px;">
@@ -538,28 +518,22 @@
             </div>
         </div>
 
-        <!-- Video -->
         <div class="video-wrapper" id="video-wrapper">
-            <iframe id="cricket-video" src="https://jiotvpllive.cdn.jio.com/bpk-tv/Star_Sports_2_Kannada_BTS/WDVLive/index.mpd" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+            <!-- Shaka Player video element -->
+            <video id="video" autoplay muted playsinline preload="metadata"></video>
 
-            <!-- Fullscreen Button -->
             <button class="fullscreen-btn" id="fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">
                 <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 3 21 3 21 9"/>
-                    <polyline points="9 21 3 21 3 15"/>
-                    <line x1="21" y1="3" x2="14" y2="10"/>
-                    <line x1="3" y1="21" x2="10" y2="14"/>
+                    <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+                    <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
                 </svg>
                 <svg class="icon-compress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="4 14 10 14 10 20"/>
-                    <polyline points="20 10 14 10 14 4"/>
-                    <line x1="10" y1="14" x2="3" y2="21"/>
-                    <line x1="21" y1="3" x2="14" y2="10"/>
+                    <polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/>
+                    <line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/>
                 </svg>
             </button>
         </div>
 
-        <!-- Info Strip -->
         <div class="info-strip">
             <div class="info-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -567,27 +541,66 @@
             </div>
             <div class="info-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 6s4-2 11-2 11 2 11 2v13s-4-2-11-2-11 2-11 2V6z"/></svg>
-                Star Sport 1 Hindi HD
+                Live Stream HD
             </div>
             <div class="info-item">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
                 HD Available
             </div>
         </div>
-
     </div>
 </main>
 
-<!-- FOOTER -->
 <footer>
     &copy; <span id="year"></span> All rights reserved by FZ - MR Sports
 </footer>
 
 <script>
+    // ========== SHOW CURRENT YEAR ==========
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
     });
 
+    // ========== SHAKA PLAYER ==========
+    (function() {
+        // Install polyfills
+        shaka.polyfill.installAll();
+
+        if (!shaka.Player.isBrowserSupported()) {
+            console.error('Shaka Player is not supported in this browser.');
+            return;
+        }
+
+        const video = document.getElementById('video');
+        const player = new shaka.Player(video);
+
+        // Error handling
+        player.addEventListener('error', (event) => {
+            console.error('Shaka Player error:', event.detail.code, event.detail);
+        });
+
+        // ---------- CONFIGURATION (edit this for your own licensed stream) ----------
+        // For testing, we use Shaka’s public demo stream.
+        // Replace with your own .mpd URL and DRM settings when you have legal content.
+        const manifestUrl = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
+
+        // If you have a licensed stream with Clear Key DRM, uncomment and fill in your keys:
+        // player.configure({
+        //   drm: {
+        //     clearKeys: {
+        //       'your-key-id-hex': 'your-key-hex'
+        //     }
+        //   }
+        // });
+
+        player.load(manifestUrl).then(() => {
+            console.log('Stream started successfully.');
+        }).catch((error) => {
+            console.error('Failed to load stream:', error);
+        });
+    })();
+
+    // ========== FULLSCREEN LOGIC (unchanged) ==========
     const wrapper   = document.getElementById('video-wrapper');
     const fsBtn     = document.getElementById('fullscreen-btn');
     const rotHint   = document.getElementById('rotate-hint');
@@ -595,7 +608,6 @@
     let fakeFsActive = false;
     let hintTimer    = null;
 
-    /* ── helpers ── */
     function isPortrait() {
         if (screen.orientation) return screen.orientation.type.startsWith('portrait');
         return window.innerHeight > window.innerWidth;
@@ -619,7 +631,6 @@
         hintTimer = setTimeout(() => rotHint.classList.remove('show'), 2500);
     }
 
-    /* ── enter fake fullscreen (mobile fallback) ── */
     function enterFakeFs() {
         fakeFsActive = true;
         wrapper.classList.add('fake-fs');
@@ -627,15 +638,12 @@
         fsBtn.title = 'Exit Fullscreen';
         fsBtn.setAttribute('aria-label', 'Exit fullscreen');
         document.body.style.overflow = 'hidden';
-
-        // Try to lock landscape; show hint if still portrait after a moment
         lockLandscape();
         setTimeout(() => {
             if (isPortrait()) showRotateHint();
         }, 400);
     }
 
-    /* ── exit fake fullscreen ── */
     function exitFakeFs() {
         fakeFsActive = false;
         wrapper.classList.remove('fake-fs');
@@ -648,15 +656,13 @@
         clearTimeout(hintTimer);
     }
 
-    /* ── main toggle ── */
-    function toggleFullscreen() {
+    window.toggleFullscreen = function() {
         const nativeFsEl = document.fullscreenElement ||
                            document.webkitFullscreenElement ||
                            document.mozFullScreenElement ||
                            document.msFullscreenElement;
 
         if (nativeFsEl) {
-            /* exit native fullscreen */
             (document.exitFullscreen ||
              document.webkitExitFullscreen ||
              document.mozCancelFullScreen ||
@@ -664,7 +670,6 @@
         } else if (fakeFsActive) {
             exitFakeFs();
         } else {
-            /* try native fullscreen first */
             const req = wrapper.requestFullscreen ||
                         wrapper.webkitRequestFullscreen ||
                         wrapper.mozRequestFullScreen ||
@@ -672,20 +677,16 @@
 
             if (req) {
                 req.call(wrapper).then(() => {
-                    /* native FS granted — also lock landscape on mobile */
                     if (isMobile()) lockLandscape();
                 }).catch(() => {
-                    /* native FS blocked (common on mobile) — use fake FS */
                     enterFakeFs();
                 });
             } else {
-                /* no native FS API at all */
                 enterFakeFs();
             }
         }
-    }
+    };
 
-    /* ── sync button state with native FS changes ── */
     function onFsChange() {
         const isFs = !!(document.fullscreenElement ||
                         document.webkitFullscreenElement ||
@@ -708,12 +709,10 @@
     document.addEventListener('mozfullscreenchange',    onFsChange);
     document.addEventListener('MSFullscreenChange',     onFsChange);
 
-    /* ── double-tap to toggle ── */
     wrapper.addEventListener('dblclick', function(e) {
-        if (!e.target.closest('.fullscreen-btn')) toggleFullscreen();
+        if (!e.target.closest('.fullscreen-btn')) window.toggleFullscreen();
     });
 
-    /* ── hide rotate hint when user actually rotates ── */
     window.addEventListener('orientationchange', () => {
         if (!isPortrait()) rotHint.classList.remove('show');
     });
@@ -721,29 +720,25 @@
         if (!isPortrait()) rotHint.classList.remove('show');
     });
 
-    /* ── exit fake FS on back button (Android) ── */
     window.addEventListener('popstate', () => {
         if (fakeFsActive) exitFakeFs();
     });
     if (fakeFsActive === false) history.pushState(null, '');
 </script>
 
-
-    <script>
+<!-- Original ad script -->
+<script>
 show_10784508({
   type: 'inApp',
   inAppSettings: {
     frequency: 2,
-    capping: 0.133,   // 8 minutes (0.133 hours)
-    interval: 180,     // 60 seconds between ads
-    timeout: 40,      // first ad after 15 seconds
+    capping: 0.133,
+    interval: 180,
+    timeout: 40,
     everyPage: false
   }
 })
 </script>
 
-
-    
-    
 </body>
 </html>
